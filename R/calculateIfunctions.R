@@ -105,7 +105,7 @@ calculate_I_smooth <- function(data,
   }
   I.pp.hat <- I.hat*(1-P.hat)*x.los.hat
   
-  return(dplyr::data_frame(
+  return(tibble::tibble(
     n = n,
     n.noso = n.noso,
     P.hat = P.hat,
@@ -171,7 +171,7 @@ calculate_I_rhame <- function(data,
   I.hat <- P.hat/(1-P.hat)/x.loi.hat
   I.pp.hat <- I.hat*(1-P.hat)*x.los.hat
   
-  return(dplyr::data_frame(
+  return(tibble::tibble(
     n = n,
     n.noso = n.noso,
     P.hat = P.hat,

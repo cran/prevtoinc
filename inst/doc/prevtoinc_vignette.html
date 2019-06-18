@@ -12,7 +12,7 @@
 
 <meta name="author" content="Niklas Willrich" />
 
-<meta name="date" content="2019-03-07" />
+<meta name="date" content="2019-06-18" />
 
 <title>Overview of the prevtoinc package</title>
 
@@ -83,6 +83,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
 
+
+
+
 </head>
 
 <body>
@@ -91,8 +94,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <h1 class="title toc-ignore">Overview of the prevtoinc package</h1>
-<h4 class="author"><em>Niklas Willrich</em></h4>
-<h4 class="date"><em>2019-03-07</em></h4>
+<h4 class="author">Niklas Willrich</h4>
+<h4 class="date">2019-06-18</h4>
 
 
 
@@ -129,12 +132,12 @@ data.pps.fast &lt;-<span class="st"> </span><span class="kw">simulate_pps_fast</
 <pre><code>## # A tibble: 6 x 5
 ##   A.loi L.loi A.los L.los patient.type
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt;        &lt;dbl&gt;
-## 1     0     0     6    20            1
-## 2     0     0     7     9            1
-## 3     0     0     8    16            1
-## 4     0     0     8    11            1
-## 5     0     0    13    13            1
-## 6     0     0     2    11            1</code></pre>
+## 1     0     0     2    17            1
+## 2     0     0     2     8            1
+## 3     0     0     5    12            1
+## 4     0     0     5    13            1
+## 5     0     0    19    23            1
+## 6     0     0     5    10            1</code></pre>
 <p>Values of zero for <code>A.loi</code> and <code>L.loi</code> indicate absence of a HAI.</p>
 <p>The incidence rate per patient day <span class="math inline">\(I\)</span> and the expected length of infection in the whole population <span class="math inline">\({x_{loi}}\)</span> for a given distribution of <span class="math inline">\(X_{loi}\)</span> and given <span class="math inline">\(P\)</span> can be calculated with <code>simulate_incidence_stats_fast</code> by supplying a prevalence <code>P</code> and a vector of probabilities <code>dist.X.loi</code> for <span class="math inline">\({{X}_{loi}}\)</span>. Optionally one can also calculate <span class="math inline">\({I_{pp}}\)</span> and <span class="math inline">\({{x}_{los}}\)</span> if one supplies a vector of probabilites <code>dist.X.los</code> for <span class="math inline">\({{X}_{los}}\)</span>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data.fast.inc.theo &lt;-<span class="st"> </span><span class="kw">simulate_incidence_stats_fast</span>(<span class="dt">P=</span><span class="fl">0.05</span>, 
@@ -210,26 +213,26 @@ hospital.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw
 <pre><code>## # A tibble: 6 x 5
 ##   A.loi A.los L.loi L.los patient.type
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;        &lt;int&gt;
-## 1     0    10     0    10            2
-## 2    14    22    14    23            1
-## 3     4    14    11    27            1
-## 4     0     5     0    14            2
-## 5     0    11     0    11            2
-## 6     0     2     0    10            1</code></pre>
+## 1     0     6     0    10            1
+## 2     0     7     0    10            2
+## 3     0    10     0    11            1
+## 4     0    11     0    14            2
+## 5     9    16    11    21            1
+## 6     0     4     0     8            1</code></pre>
 <p>To get additional theoretical quantities based on the whole population, one can use <code>simulate_incidence_stats</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data.inc.theo &lt;-<span class="st"> </span><span class="kw">simulate_incidence_stats</span>(hospital.<span class="dv">1</span>, <span class="dv">365</span> <span class="op">*</span><span class="st"> </span><span class="dv">1000</span>)
 <span class="co"># gives incidence rate I</span>
 data.inc.theo<span class="op">$</span>I</code></pre></div>
-<pre><code>## [1] 0.014315</code></pre>
+<pre><code>## [1] 0.01491682</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># gives incidence proportion per admission</span>
 data.inc.theo<span class="op">$</span>I.pp</code></pre></div>
-<pre><code>## [1] 0.1714033</code></pre>
+<pre><code>## [1] 0.1785913</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># average length of stay of patients who did not have a HAI</span>
 data.inc.theo<span class="op">$</span>x.los.wo.noso</code></pre></div>
-<pre><code>## [1] 11.97368</code></pre>
+<pre><code>## [1] 11.97248</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># average length of stay of patients who had at least one HAI during their stay</span>
 data.inc.theo<span class="op">$</span>x.los.only.noso</code></pre></div>
-<pre><code>## [1] 17.51667</code></pre>
+<pre><code>## [1] 17.78926</code></pre>
 </div>
 </div>
 <div id="estimating-incidence-from-pps-data" class="section level2">
@@ -248,18 +251,39 @@ export(generate_I_fast)
 <pre><code>## # A tibble: 1 x 8
 ##       n n.noso P.hat  I.hat I.pp.hat x.loi.hat x.los.hat method
 ##   &lt;int&gt;  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt; 
-## 1  5000    577 0.115 0.0143    0.169      9.12      13.3 gren</code></pre>
+## 1  5000    529 0.106 0.0125    0.149      9.45      13.3 gren</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data.inc.theo<span class="op">$</span>I</code></pre></div>
-<pre><code>## [1] 0.014315</code></pre>
+<pre><code>## [1] 0.01491682</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">calculate_I_smooth</span>(<span class="dt">data =</span> data.pps.fast,
                   <span class="dt">method =</span> <span class="st">&quot;gren&quot;</span>)</code></pre></div>
 <pre><code>## # A tibble: 1 x 8
 ##       n n.noso  P.hat   I.hat I.pp.hat x.loi.hat x.los.hat method
 ##   &lt;int&gt;  &lt;int&gt;  &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt; 
-## 1  5000    266 0.0532 0.00739   0.0884       7.6      12.6 gren</code></pre>
+## 1  5000    242 0.0484 0.00652   0.0771      7.81      12.4 gren</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data.fast.inc.theo<span class="op">$</span>I</code></pre></div>
 <pre><code>## [1] 0.006578947</code></pre>
 <p>There is another variation of this estimator specified with <code>method = &quot;rear&quot;</code>. This uses the rearrangement estimator studied in <span class="citation">(Jankowski and Wellner 2009)</span> instead of the Grenander estimator as an estimator for the monotonously decreasing distribution of <span class="math inline">\({{A}_{loi}}\)</span> and <span class="math inline">\({{A}_{los}}\)</span>. We will denote this type of estimator by <em>rear</em>.</p>
+</div>
+<div id="confidence-intervals-for-the-new-estimator" class="section level3">
+<h3>Confidence intervals for the new estimator</h3>
+<p>There are two helper functions to calculate confidence intervals for the estimates of <span class="math inline">\({I_{pp}}\)</span> with the <em>gren</em> estimator: One ( <code>calculate_CI_I_pp</code>) is based on the typical output of <code>calculate_I_smooth</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gren_est &lt;-<span class="st"> </span><span class="kw">calculate_I_smooth</span>(<span class="dt">data =</span> data.pps.fast, <span class="dt">method =</span> <span class="st">&quot;gren&quot;</span>)
+gren_est</code></pre></div>
+<pre><code>## # A tibble: 1 x 8
+##       n n.noso  P.hat   I.hat I.pp.hat x.loi.hat x.los.hat method
+##   &lt;int&gt;  &lt;int&gt;  &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt; 
+## 1  5000    242 0.0484 0.00652   0.0771      7.81      12.4 gren</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">calculate_CI_I_pp</span>(gren_est, <span class="dt">method =</span> <span class="st">&quot;asymptotic&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.05</span>)</code></pre></div>
+<pre><code>## # A tibble: 1 x 2
+##   CI.lower.Ipp CI.upper.Ipp
+##          &lt;dbl&gt;        &lt;dbl&gt;
+## 1       0.0491        0.105</code></pre>
+<p>The other (<code>CI_np_bs</code>) is based on a bootstrapping approach which resamples from the estimates of the distributions for <span class="math inline">\({{A}_{loi}}\)</span> and <span class="math inline">\(Alos\)</span> based on the Grenander estimator. It works with data as output by <code>simulate_pps_data*</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">CI_np_bs</span>(data.pps.fast)</code></pre></div>
+<pre><code>## # A tibble: 1 x 2
+##   CI.lower.Ipp CI.upper.Ipp
+##          &lt;dbl&gt;        &lt;dbl&gt;
+## 1       0.0655        0.106</code></pre>
 </div>
 <div id="other-estimators" class="section level3">
 <h3>Other estimators</h3>
@@ -271,11 +295,11 @@ export(generate_I_fast)
 <pre><code>## # A tibble: 1 x 8
 ##       n n.noso P.hat  I.hat I.pp.hat x.loi.hat x.los.hat method           
 ##   &lt;int&gt;  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;            
-## 1  5000    577 0.115 0.0151    0.180      8.64      13.5 method identifier</code></pre>
+## 1  5000    529 0.106 0.0135    0.163      8.77      13.5 method identifier</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data.inc.theo<span class="op">$</span>I</code></pre></div>
-<pre><code>## [1] 0.014315</code></pre>
+<pre><code>## [1] 0.01491682</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data.inc.theo<span class="op">$</span>I.pp</code></pre></div>
-<pre><code>## [1] 0.1714033</code></pre>
+<pre><code>## [1] 0.1785913</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">calculate_I_rhame</span>(data.pps.fast,
                   <span class="dt">x.loi.hat =</span> data.fast.inc.theo<span class="op">$</span>x.loi,
                   <span class="dt">x.los.hat =</span> data.fast.inc.theo<span class="op">$</span>x.los,
@@ -283,7 +307,7 @@ export(generate_I_fast)
 <pre><code>## # A tibble: 1 x 8
 ##       n n.noso  P.hat   I.hat I.pp.hat x.loi.hat x.los.hat method          
 ##   &lt;int&gt;  &lt;int&gt;  &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;           
-## 1  5000    266 0.0532 0.00702   0.0864         8        13 method identifi~</code></pre>
+## 1  5000    242 0.0484 0.00636   0.0786         8        13 method identifi~</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data.fast.inc.theo<span class="op">$</span>I</code></pre></div>
 <pre><code>## [1] 0.006578947</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data.fast.inc.theo<span class="op">$</span>I.pp</code></pre></div>
@@ -300,31 +324,33 @@ export(generate_I_fast)
 <li><em>rhame.theo</em> - estimator using theoretical values for x.loi/x.los.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">calculate_I</span>(data.pps.fast, data.fast.inc.theo)</code></pre></div>
-<pre><code>## # A tibble: 7 x 8
+<pre><code>## # A tibble: 8 x 8
 ##       n n.noso  P.hat   I.hat I.pp.hat x.loi.hat x.los.hat method    
 ##   &lt;int&gt;  &lt;int&gt;  &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;     
-## 1  5000    266 0.0532 0.00739   0.0884      7.6      12.6  gren      
-## 2  5000    266 0.0532 0.00887   0.104       6.33     12.3  rear      
-## 3  5000    266 0.0532 0.0109    0.130       5.15     12.6  pps.mixed 
-## 4  5000    266 0.0532 0.0140    0.0931      4         7    pps.median
-## 5  5000    266 0.0532 0.0114    0.0802      4.91      7.41 pps.mean  
-## 6  5000    266 0.0532 0.00687   0.0842      8.18     12.9  L.full    
-## 7  5000    266 0.0532 0.00702   0.0864      8        13    rhame.theo</code></pre>
+## 1  5000    242 0.0484 0.00652   0.0771      7.81     12.4  gren      
+## 2  5000    242 0.0484 0.00778   0.0894      6.54     12.1  rear      
+## 3  5000    242 0.0484 0.00971   0.115       5.24     12.4  pps.mixed 
+## 4  5000    242 0.0484 0.0102    0.0678      5         7    pps.median
+## 5  5000    242 0.0484 0.0101    0.0706      5.05      7.36 pps.mean  
+## 6  5000    242 0.0484 0.00619   0.0764      8.21     13.0  L.full    
+## 7  5000    242 0.0484 0.00636   0.0786      8        13    rhame.theo
+## 8  5000    242 0.0484 0.00546   0.0667      9.31     12.8  naive</code></pre>
 <p>If one wants to combine the (fast) simulation step with the estimation step one can use <code>generate_I_fast</code>. This is just a wrapper for first calling <code>simulate_pps_fast</code> and then calling <code>calculate_I</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">generate_I_fast</span>(<span class="dt">n.sample =</span> <span class="dv">10000</span>,
                 <span class="dt">P =</span> <span class="fl">0.05</span>,
                 <span class="dt">dist.X.loi =</span> example.dist,
                 <span class="dt">data.theo =</span> data.fast.inc.theo)</code></pre></div>
-<pre><code>## # A tibble: 7 x 8
+<pre><code>## # A tibble: 8 x 8
 ##       n n.noso  P.hat   I.hat I.pp.hat x.loi.hat x.los.hat method    
 ##   &lt;int&gt;  &lt;int&gt;  &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;     
-## 1 10000    471 0.0471 0.00640  NA           7.72        NA gren      
-## 2 10000    471 0.0471 0.00745  NA           6.63        NA rear      
-## 3 10000    471 0.0471 0.00804  NA           6.15        NA pps.mixed 
-## 4 10000    471 0.0471 0.00989  NA           5           NA pps.median
-## 5 10000    471 0.0471 0.00994  NA           4.97        NA pps.mean  
-## 6 10000    471 0.0471 0.00618  NA           8.00        NA L.full    
-## 7 10000    471 0.0471 0.00618   0.0765      8           13 rhame.theo</code></pre>
+## 1 10000    489 0.0489 0.00820  NA           6.27        NA gren      
+## 2 10000    489 0.0489 0.00820  NA           6.27        NA rear      
+## 3 10000    489 0.0489 0.00935  NA           5.50        NA pps.mixed 
+## 4 10000    489 0.0489 0.0103   NA           5           NA pps.median
+## 5 10000    489 0.0489 0.0107   NA           4.81        NA pps.mean  
+## 6 10000    489 0.0489 0.00648  NA           7.94        NA L.full    
+## 7 10000    489 0.0489 0.00643   0.0795      8           13 rhame.theo
+## 8 10000    489 0.0489 0.00820  NA           6.27        NA naive</code></pre>
 </div>
 </div>
 <div id="helper-functions" class="section level2">
@@ -341,11 +367,11 @@ export(X_to_A_dist)
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">A.loi.sample &lt;-<span class="st"> </span>data.pps<span class="op">$</span>A.loi[data.pps<span class="op">$</span>A.loi<span class="op">&gt;</span><span class="dv">0</span>]
 <span class="co"># raw histogram of data</span>
 <span class="kw">hist</span>(A.loi.sample)</code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">A.loi.smoothed &lt;-<span class="st"> </span><span class="kw">monotone_smoother</span>(A.loi.sample, <span class="dt">method =</span> <span class="st">&quot;gren&quot;</span>)
 <span class="co"># estimated monotonously decreasing distribution</span>
 <span class="kw">plot</span>(A.loi.smoothed)</code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
 <p>For creating length-biased distributions there is <code>length_biased_dist</code>, which takes a vector of probabilities of a discrete positive distribution as an argument.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># geometric distribution starting in 1 and cutoff at 70 with mean at about 8.</span>
 geom.dist &lt;-<span class="st"> </span><span class="kw">create_dist_vec</span>(geom_dist_fct, <span class="dt">max.dist =</span> <span class="dv">70</span>)

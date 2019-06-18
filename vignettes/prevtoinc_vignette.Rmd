@@ -213,6 +213,20 @@ data.fast.inc.theo$I
 There is another variation of this estimator specified with `method = "rear"`.
 This uses the rearrangement estimator studied in [@jankowski2009] instead of the Grenander estimator as an estimator for the monotonously decreasing distribution of $\Aloi$ and $\Alos$. We will denote this type of estimator by _rear_.
 
+### Confidence intervals for the new estimator
+
+There are two helper functions to calculate confidence intervals for the estimates of $\Ipp$ with the _gren_ estimator:
+One ( `calculate_CI_I_pp`) is based on the typical output of `calculate_I_smooth`:
+```{r}
+gren_est <- calculate_I_smooth(data = data.pps.fast, method = "gren")
+gren_est
+calculate_CI_I_pp(gren_est, method = "asymptotic", alpha = 0.05)
+```
+The other (`CI_np_bs`) is based on a bootstrapping approach which resamples from the estimates of the distributions for $\Aloi$ and $Alos$ based on the Grenander estimator. It works with data as output by `simulate_pps_data*`.
+```{r}
+CI_np_bs(data.pps.fast)
+```
+
 ### Other estimators
 
 The function `calculate_I_rhame` can be used to calculate the incidence with a user-supplied value `x.loi.hat` for the estimated length of infection $\xloi$ and an optional specification of `x.los.hat` for the estimated length of stay $\xlos$ to get an estimate of $\Ipp$ too. Here we take the example of an estimator where 

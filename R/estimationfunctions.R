@@ -2,7 +2,6 @@
 #' starting at 1
 #' @param dist vector of probabilities of length-biased distribution
 #' @return mean of length-unbiased distribution 
-
 #' 
 #' @examples 
 #' 
@@ -25,7 +24,6 @@ length_unbiased_mean <- function(dist) {
 #' starting at 1
 #' @param dist vector of probabilities of distribution to transform
 #' @return vector of probabilities of transformed distribution
-
 #' 
 #' @examples 
 #' 
@@ -66,7 +64,6 @@ epmf <- function(values) {
   n <- length(values)
   sapply(1:max(values), function(i) sum(values==i)/n)
 }
-
 #' Transform a distribution of times of stay to a
 #' distribution of staying-time up to observation point under
 #' assumption of steady state.
@@ -131,6 +128,7 @@ A_to_X_dist <- function(dist.point) {
 }
 
 #' Calculate a monotone probability mass function estimate
+#'
 #' using a  rearrangement or a Grenander estimator as described in Jankoswski,
 #' Wellner, 2009 <doi:10.1214/09-EJS526>
 #'
@@ -149,7 +147,7 @@ A_to_X_dist <- function(dist.point) {
 #' dist.A.gren <- monotone_smoother(A, method = "gren")
 #' # plot estimated probability mass function
 #' points(dist.A.gren, col = "red")
-#' 
+#'
 #' @export
 monotone_smoother <- function(values, method = "rear", 
                               range = c(1, max(values))) {

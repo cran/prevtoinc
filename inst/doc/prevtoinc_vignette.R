@@ -74,6 +74,14 @@ calculate_I_smooth(data = data.pps.fast,
 data.fast.inc.theo$I
 
 ## ------------------------------------------------------------------------
+gren_est <- calculate_I_smooth(data = data.pps.fast, method = "gren")
+gren_est
+calculate_CI_I_pp(gren_est, method = "asymptotic", alpha = 0.05)
+
+## ------------------------------------------------------------------------
+CI_np_bs(data.pps.fast)
+
+## ------------------------------------------------------------------------
 calculate_I_rhame(data.pps,
                   x.loi.hat = data.inc.theo$x.loi,
                   x.los.hat = data.inc.theo$x.los,

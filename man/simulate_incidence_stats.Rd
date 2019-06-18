@@ -5,12 +5,15 @@
 \title{Calculate theoretical values like 
 x.los, x.loi and other characteristics of the patient population}
 \usage{
-simulate_incidence_stats(hospital, steps = 365 * 10000)
+simulate_incidence_stats(hospital, steps = 365 * 10000,
+  n.sim.pat = 5000)
 }
 \arguments{
 \item{hospital}{type of hospital as a list-object (see vignette for details)}
 
 \item{steps}{number of steps to evolve process}
+
+\item{n.sim.pat}{size of simulations to estimate individual characteristics of patients}
 }
 \value{
 list with following components \itemize{

@@ -2,9 +2,7 @@
 % Please edit documentation in R/estimationfunctions.R
 \name{monotone_smoother}
 \alias{monotone_smoother}
-\title{Calculate a monotone probability mass function estimate
-using a  rearrangement or a Grenander estimator as described in Jankoswski,
-Wellner, 2009 <doi:10.1214/09-EJS526>}
+\title{Calculate a monotone probability mass function estimate}
 \usage{
 monotone_smoother(values, method = "rear", range = c(1, max(values)))
 }
@@ -19,7 +17,6 @@ monotone_smoother(values, method = "rear", range = c(1, max(values)))
 vector of estimated pmf (support of distribution is by default assumed to be min(values):max(values) )
 }
 \description{
-Calculate a monotone probability mass function estimate
 using a  rearrangement or a Grenander estimator as described in Jankoswski,
 Wellner, 2009 <doi:10.1214/09-EJS526>
 }

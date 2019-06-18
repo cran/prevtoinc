@@ -135,7 +135,7 @@ simulate_pps_fast <- function(n.sample,
     L.los <- NA
   }
   
-  dplyr::data_frame(
+  tibble::tibble(
     A.loi,
     L.loi,
     A.los,
@@ -149,6 +149,7 @@ simulate_pps_fast <- function(n.sample,
 #'
 #' @param hospital type of hospital as a list-object (see vignette for details)
 #' @param steps number of steps to evolve process
+#' @param n.sim.pat size of simulations to estimate individual characteristics of patients
 #'
 #' @return list with following components \itemize{
 #'    \item{x.los - average length of stay x_{los}} 
@@ -189,7 +190,7 @@ simulate_pps_fast <- function(n.sample,
 #' data.inc.theo$I.pp
 #' @export
 simulate_incidence_stats <- function(hospital, 
-                                     steps = 365 * 10000) {
+                                     steps = 365 * 10000, n.sim.pat = 5000) {
   results <- bed.process.long(steps, hospital)
   x.los <- steps/results$n.patients
   x.loi <- results$noso.state/results$noso.count
@@ -201,10 +202,10 @@ simulate_incidence_stats <- function(hospital,
   patient.list <- hospital$patient.list
   patient.stats <- lapply(1:length(patient.list), function(i) {
     x.loi <- mean(sample(1:length(patient.list[[i]]$dist.X.loi),
-                         5000, replace = TRUE,
+                         n.sim.pat, replace = TRUE,
                          prob = patient.list[[i]]$dist.X.loi))
     x.los <- mean(sample(1:length(patient.list[[i]]$dist.X.los),
-                         5000, replace = TRUE,
+                         n.sim.pat, replace = TRUE,
                          prob = patient.list[[i]]$dist.X.los))
     list(x.loi = x.loi, x.los = x.los)
   })
@@ -489,6 +490,7 @@ create_dist_vec <- function(dist, max.dist) {
 #' generate_I_fast(200, P = 0.05, example.dist )
 #' 
 #' @export
+#'
 generate_I_fast <- function(n.sample, P,
                             dist.X.loi,
                             data.theo = NULL, 
@@ -540,7 +542,7 @@ generate_I_fast <- function(n.sample, P,
 #' @export
 #'
 calculate_I <- function(data, data.theo = NULL) {
-  
+
   if (is.null(data.theo)) {
     data.theo <- list(x.loi = NA, x.los = NA, I = NA, I.pp = NA)
   }
@@ -549,6 +551,8 @@ calculate_I <- function(data, data.theo = NULL) {
   A.loi <- na.omit(data$A.loi[data$A.loi > 0])
   x.loi.hat.median <- median(A.loi)
   x.loi.hat.mean <- mean(A.loi)
+  x.loi.hat.naive <- length(A.loi)/(sum(A.loi == 1))
+  
   if ("L.loi" %in% colnames(data) && any(!is.na(data$L.loi))) {
     L.loi <- na.omit(data$L.loi[data$L.loi > 0])
     x.loi.hat.L.full <- length_unbiased_mean(epmf(L.loi))
@@ -561,9 +565,11 @@ calculate_I <- function(data, data.theo = NULL) {
     A.los <- na.omit(data$A.los[data$A.los > 0])
     x.los.hat.median <- median(A.los)
     x.los.hat.mean <- mean(A.los)
+    x.los.hat.naive <- length(A.los)/(sum(A.los == 1))
   } else {
     x.los.hat.median <- NA
     x.los.hat.mean <- NA
+    x.los.hat.naive <- NA
   }
   if ("L.los" %in% colnames(data) && any(!is.na(data$L.los))) {
     L.los <- na.omit(data$L.los[data$L.los > 0])
@@ -572,8 +578,13 @@ calculate_I <- function(data, data.theo = NULL) {
     x.los.hat.L.full <- NA
   }
   
+
   
-  
+
+  I.naive <- calculate_I_rhame(data,
+                               x.loi.hat.naive,
+                               x.los.hat.naive,
+                               method = "naive")
   I.new.gren  <- calculate_I_smooth(data,
                                     method = "gren")
   I.new.rear  <- calculate_I_smooth(data,
@@ -592,10 +603,14 @@ calculate_I <- function(data, data.theo = NULL) {
                                    x.loi.hat.L.full,
                                    x.los.hat.L.full,
                                    method = "L.full")
-  I.rhame     <- calculate_I_rhame(data,
-                                   data.theo$x.loi,
-                                   data.theo$x.los,
-                                   method = "rhame.theo")
+  if(is.null(data.theo)) {
+    data.theo <- list(x.loi = NA, x.los = NA)
+  }
+    I.rhame     <- calculate_I_rhame(data,
+                                     data.theo$x.loi,
+                                     data.theo$x.los,
+                                     method = "rhame.theo")
+
   
   I.new.mixed <- calculate_I_mixed(I.pps.mean,
                                    I.new.gren,
@@ -612,6 +627,119 @@ calculate_I <- function(data, data.theo = NULL) {
     I.pps.median,
     I.pps.mean,
     I.full,
-    I.rhame
+    I.rhame,
+    I.naive
   )
+}
+
+#' Function to simulate a single hospital bed trajectory
+#' 
+#' Simulates the occupation of bed and incidence of HAIs of a single bed. 
+#' Length of HAI is assumed to be additive to length of stay without HAI.
+#'
+#' @param X_los_dist vector of probabilities for values 1:length(dist.X.los) of X.los
+#' @param X_loi_dist vector of probabilities for values 1:length(dist.X.loi) of X.loi
+#' @param I incidence rate per patient-day at risk
+#' @param steps number of days to evolve trajectory of bed
+#' 
+#' 
+#' @return data frame with following columns \itemize{
+#' \item{pat_nbr - sequential patient number}
+#' \item{hai_nbr - sequential HAI number}
+#' \item{X_los -  predicted total length of stay for patient on current day}
+#' \item{X_los_wo_hai - }
+#' \item{X_loi - total length of current HAI}
+#' \item{X_loi_tot - added total lengths of all HAIs up to day}
+#' \item{A_los -  length of stay up to day}
+#' \item{X_lnint - length of stay after acquiring first HAI}
+#' }
+#'
+#'
+#' @examples
+#' 
+#' 
+#' example.dist <- create_dist_vec(function(x) dpois(x-1, 7), max.dist = 70)
+#' example.dist.los <- create_dist_vec(function(x) dpois(x-1, lambda = 12),
+#'                                     max.dist = 70)
+#' bed_hist <- create_patient_history_add(example.dist.los, example.dist, I = 0.08, 1000)
+#' tail(bed_hist)
+#' 
+#' 
+#' @export
+create_patient_history_add <- function(X_los_dist, X_loi_dist, I,  steps) {
+  # intialize variables
+  A_los <- 0
+  X_los <- 0
+  A_loi <- NA
+  X_loi_tot <- 0
+  prev_ill <- FALSE
+  curr_ill <- FALSE
+  pat_count <- 0
+  hai_nbr <- 0
+  
+  patient_data <- 
+    tibble::tibble(pat_nbr = integer(), hai_nbr = integer(),
+           X_los= integer(),
+           X_los_wo_hai = integer(),
+           X_loi = integer(), X_loi_tot = integer(),
+           A_los = integer(), A_loi = integer(),
+           X_lnint = integer())
+  
+  # evolve days of hospital-bed
+  for ( i in 1:steps) {
+    if (X_los - A_los == 0) {
+      # new patient arrives
+      pat_count <- pat_count + 1
+      X_los <- sample.int(length(X_los_dist), 1, prob = X_los_dist)
+      A_los <- 0
+      X_lnint <- NA
+      X_loi <- NA
+      X_loi_tot <- NA
+      X_los_wo_hai <- X_los
+      prev_ill <- FALSE
+      curr_ill <- FALSE
+    }
+    
+    if (is.na(X_loi) || (X_loi - A_loi == 0)) {
+      # end of HAI
+      A_loi <- NA
+      X_loi <- NA
+      curr_ill <- FALSE
+    }
+    
+    # check if HAI occurs on day
+    if (!curr_ill & rbinom(1,1,I)) {
+      # new HAI
+      curr_ill <- TRUE
+      hai_nbr <- hai_nbr + 1
+      A_loi <- 0
+      X_loi <- sample.int(length(X_loi_dist), 1, prob = X_loi_dist)
+      X_los <- X_los + X_loi
+      if (!prev_ill) {
+        # first HAI of patient
+        X_lnint <- X_los - A_los 
+        X_loi_tot <- 0
+        prev_ill <- TRUE
+      }
+      # count total length of all HAIs for one patient
+      X_loi_tot <- X_loi_tot + X_loi
+      
+    }
+    # update counter of A's
+    if(curr_ill) {
+      A_loi <- A_loi + 1
+    }
+    A_los <- A_los + 1
+    patient_data <- patient_data %>% 
+      dplyr::add_row(pat_nbr = pat_count, 
+              hai_nbr = ifelse(curr_ill, hai_nbr, NA),
+              X_los = X_los, 
+              X_los_wo_hai = X_los_wo_hai,
+              X_loi = X_loi,
+              X_loi_tot = X_loi_tot,
+              A_los = A_los, A_loi = A_loi,
+              X_lnint = X_lnint)
+  }
+  # return history of states
+  patient_data
 }
